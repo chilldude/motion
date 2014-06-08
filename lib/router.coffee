@@ -16,6 +16,11 @@ Router.map ->
   @route "postSubmit",
     path: "/submit"
 
+  @route "postEdit",
+    path: "/posts/:_id/edit"
+    data: ->
+      Posts.findOne @params._id
+
   return
 
 requireLogin = ->

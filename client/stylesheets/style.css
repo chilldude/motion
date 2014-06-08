@@ -19,6 +19,15 @@ body {
 
 #spinner { height: 300px }
 
+#iron-router-progress {
+    background-color : #31b0d5;
+    box-shadow       : 0 0 5px #31b0d5;
+}
+
+#iron-router-progress.spinner:before {
+    border-color : transparent;
+}
+
 .post {
     *zoom: 1;
     -webkit-transition: all 300ms 0ms;

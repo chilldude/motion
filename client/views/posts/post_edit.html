@@ -1,4 +1,4 @@
-<template name="postSubmit">
+<template name="postEdit">
     <form class="main" role="form">
         <div class="form-group">
             <label for="url">url</label>
@@ -13,8 +13,9 @@
             <textarea name="message" type="text" class="form-control" value=""></textarea>
         </div>
         <div class="form-group">
+            <a class="btn btn-default" href="{{pathFor 'postPage'}}">Cancel</a>
             <input type="submit" value="Submit" class="btn btn-primary">
+            <a class="btn btn-danger delete pull-right" href="#">Delete post</a>
         </div>
     </form>
 </template>
-
