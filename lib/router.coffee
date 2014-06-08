@@ -29,8 +29,9 @@ requireLogin = ->
       @render @loadingTemplate
     else
       @render "accessDenied"
-    @stop()
+    @pause()
   return
 
+Router.onBeforeAction("loading")
 Router.onBeforeAction requireLogin,
   only: "postSubmit"

@@ -1,5 +1,14 @@
 @Posts = new Meteor.Collection("posts")
 
+Posts.allow
+  update: ownsDocument
+  remove: ownsDocument
+
+Posts.deny
+  update: (userId, post, fieldNames) ->
+    # may only edit 2 fields
+    (_.without(fieldNames, 'url', 'title').length > 0)
+
 Meteor.methods
   post: (postAttributes) ->
     user = Meteor.user()
@@ -19,10 +28,11 @@ Meteor.methods
 
     # pick out whitelisted keys
     post = _.extend(_.pick(postAttributes, "url", "title", "message",
-      title: postAttributes.title
-      userId: user._id
-      author: user.username
-      submitted: new Date().getTime()
+      {
+        userId: user._id
+        author: user.username
+        submitted: new Date().getTime()
+      }
     ))
 
     postId = Posts.insert(post)
