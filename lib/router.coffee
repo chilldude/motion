@@ -4,6 +4,8 @@ Router.configure
   waitOn: ->
     Meteor.subscribe "posts"
 
+    return
+
 Router.map ->
   @route "postsList",
     path: "/"

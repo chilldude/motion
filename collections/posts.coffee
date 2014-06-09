@@ -22,19 +22,19 @@ Meteor.methods
     unless postAttributes.title
       throw new Meteor.Error(422, "Please fill in a headline")
 
-    # check for dupes
+    # check for dupe links
     if postAttributes.url and postWithSameLink
       throw new Meteor.Error(302, "Duplicate post", postWithSameLink._id)
 
     # pick out whitelisted keys
-    post = _.extend(_.pick(postAttributes, "url", "title", "message",
+    post = _.extend(_.pick(postAttributes, "url", "title", "message"),
       {
         userId: user._id
         author: user.username
         submitted: new Date().getTime()
       }
-    ))
+    )
 
     postId = Posts.insert(post)
 
-    return postId
+    postId
