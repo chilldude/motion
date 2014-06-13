@@ -2,10 +2,10 @@ Router.configure
   layoutTemplate: "layout"
   loadingTemplate: "loading"
   waitOn: ->
-    Meteor.subscribe "posts"
-
-    return
-
+    [
+      Meteor.subscribe("posts")
+      Meteor.subscribe("comments")
+    ]
 Router.map ->
   @route "postsList",
     path: "/"

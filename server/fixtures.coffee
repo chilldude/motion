@@ -1,28 +1,30 @@
 if Posts.find().count() is 0
-    now = new Date().getTime()
-    
-    # create two users
-    tonesId = Meteor.users.insert profile:
-        name: "Tony Chen"
+  now = new Date().getTime()
+  # create two users
+  tonesId = Meteor.users.insert(profile:
+    name: "Tony Chen"
+  )
 
-    tones = Meteor.users.findOne(tonesId)
+  tones = Meteor.users.findOne(tonesId)
 
-    dankId = Meteor.users.insert profile:
-        name: "Dank Nug"
+  dankId = Meteor.users.insert(profile:
+    name: "Dank Nug"
+  )
 
-    dank = Meteor.users.findOne(dankId)
+  dank = Meteor.users.findOne(dankId)
 
-    Posts.insert
-        title: "bsc hackerspace @ cloyne"
-        author: "mitar"
-        url: "http://bsc.coop"
+  testId = Posts.insert(
+    title: "bsc hackerspace @ cloyne"
+    userId: tones._id
+    author: tones.profile.name
+    url: "http://bsc.coop"
+    submitted: now - 7 * 3600 * 1000
+  )
 
-    Posts.insert
-        title: "png connor braa"
-        author: "connor braa"
-        url: "http://casa-z.org"
-
-    Posts.insert
-        title: "Sky bridge"
-        author: "Tony chen"
-        url: "http://casa-z.org"
+  Comments.insert(
+    postId: testId
+    userId: dank._id
+    author: dank.profile.name
+    submitted: now - 7 * 3600 * 1000
+    body: "Test comment new post"
+  )
