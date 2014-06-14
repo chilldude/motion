@@ -4,6 +4,7 @@ Router.configure
   waitOn: ->
     [
       Meteor.subscribe("posts")
+      Meteor.subscribe("notifications")
     ]
 Router.map ->
   @route "postsList",

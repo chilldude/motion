@@ -28,4 +28,7 @@ Meteor.methods
     # create the comment, then save the id
     comment._id = Comments.insert comment
 
-    return
+    # create a notification, informing other users that there's been a comment
+    createCommentNotification(comment)
+
+    comment._id
