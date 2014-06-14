@@ -19,6 +19,7 @@ if Posts.find().count() is 0
     author: tones.profile.name
     url: "http://bsc.coop"
     submitted: now - 7 * 3600 * 1000
+    commentsCount: 1
   )
 
   Comments.insert(
