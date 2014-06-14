@@ -25,4 +25,7 @@ Meteor.methods
       $inc:
         commentsCount: 1
 
-    Comments.insert comment
+    # create the comment, then save the id
+    comment._id = Comments.insert comment
+
+    return
