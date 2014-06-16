@@ -3,13 +3,32 @@ Router.configure
   loadingTemplate: "loading"
   waitOn: ->
     [
-      Meteor.subscribe("posts")
       Meteor.subscribe("notifications")
     ]
-Router.map ->
-  @route "postsList",
-    path: "/"
 
+PostsListController = RouteController.extend(
+  template: "postsList"
+  increment: 5
+  limit: ->
+    parseInt(@params.postsLimit) or @increment
+  findOptions: ->
+    sort:
+      submitted: -1
+    limit: @limit()
+  waitOn: ->
+    Meteor.subscribe "posts", @findOptions()
+  posts: ->
+    Posts.find({}, @findOptions())
+  data: ->
+    hasMore = @posts().fetch().length is @limit()
+    nextPath = @route.path(postsLimit: @limit + @increment)
+
+    posts: @posts()
+    nextPath: (hasMore ? nextPath : null)
+
+)
+
+Router.map ->
   @route "postPage",
     path: "/posts/:_id"
     waitOn: ->
@@ -24,6 +43,10 @@ Router.map ->
     path: "/posts/:_id/edit"
     data: ->
       Posts.findOne @params._id
+
+  @route "postsList",
+    path: "/:postsLimit?"
+    controller: PostsListController
 
   return
 
