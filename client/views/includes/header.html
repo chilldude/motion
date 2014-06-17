@@ -3,14 +3,20 @@
         <div class="navbar-inner">
             <a class="navbar-brand" href="{{pathFor 'postsList'}}">Motion</a>
             <ul class="nav navbar-nav">
-                <li>
-                    <a href="{{pathFor 'postSubmit'}}">New</a>
+                <li class="{{activeRouteClass 'home' 'newPosts'}}">
+                  <a href="{{pathFor 'newPosts'}}">New</a>
                 </li>
-                <li class="dropdown">
-                    {{> notifications}}
+                <li class="{{activeRouteClass 'topPosts'}}">
+                  <a href="{{pathFor 'topPosts'}}">Top</a>
+                </li>
+                <li class="{{activeRouteClass 'postSubmit'}}">
+                    <a href="{{pathFor 'postSubmit'}}">Submit</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav pull-right">
+                <li class="dropdown">
+                  {{> notifications}}
+                </li>
                 {{> loginButtons align="right"}}
             </ul>
         </div>

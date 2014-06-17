@@ -20,6 +20,8 @@ if Posts.find().count() is 0
     url: "http://bsc.coop"
     submitted: now - 7 * 3600 * 1000
     commentsCount: 1
+    upvoters: []
+    votes: 0
   )
 
   Comments.insert(

@@ -21,10 +21,30 @@ PostsListController = RouteController.extend(
     Posts.find({}, @findOptions())
   data: ->
     hasMore = @posts().fetch().length is @limit()
-    nextPath = @route.path(postsLimit: @limit + @increment)
 
     posts: @posts()
-    nextPath: (hasMore ? nextPath : null)
+    nextPath: (if hasMore then nextPath else null)
+)
+
+NewPostsListController = PostsListController.extend(
+  sort:
+    submitted: -1
+    _id: -1
+  nextPath: ->
+    Router.routes.newPosts.path(
+      postsLimit: @limit() + @increment
+    )
+)
+
+TopPostsListController = PostsListController.extend(
+  sort:
+    votes: -1
+    submitted: -1
+    _id: -1
+  nextPath: ->
+    Router.routes.topPosts.path(
+      postsLimit: @limit() + @increment
+    )
 
 )
 
@@ -32,21 +52,35 @@ Router.map ->
   @route "postPage",
     path: "/posts/:_id"
     waitOn: ->
-      Meteor.subscribe "comments", @params._id
+      [
+        Meteor.subscribe "singlePost", @params._id
+        Meteor.subscribe "comments", @params._id
+      ]
     data: ->
       Posts.findOne @params._id
 
   @route "postSubmit",
     path: "/submit"
+    disableProgerss: true
 
   @route "postEdit",
     path: "/posts/:_id/edit"
+    waitOn: ->
+      Meteor.subscribe "singlePost", @prarams._id
     data: ->
       Posts.findOne @params._id
 
-  @route "postsList",
-    path: "/:postsLimit?"
-    controller: PostsListController
+  @route "home",
+    path: "/"
+    controller: NewPostsListController
+
+  @route "newPosts",
+    path: "new/:postsLimit?"
+    controller: NewPostsListController
+
+  @route "topPosts",
+    path: "top/:postsLimit?"
+    controller: NewPostsListController
 
   return
 
