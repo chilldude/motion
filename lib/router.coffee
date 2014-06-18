@@ -6,7 +6,7 @@ Router.configure
       Meteor.subscribe("notifications")
     ]
 
-PostsListController = RouteController.extend(
+@PostsListController = RouteController.extend(
   template: "postsList"
   increment: 5
   limit: ->
@@ -20,12 +20,11 @@ PostsListController = RouteController.extend(
     Posts.find({}, @findOptions())
   data: ->
     hasMore = @posts().fetch().length is @limit()
-
     posts: @posts()
-    nextPath: (if hasMore then nextPath else null)
+    nextPath: (if hasMore then @nextPath() else null)
 )
 
-NewPostsListController = PostsListController.extend(
+@NewPostsListController = PostsListController.extend(
   sort:
     submitted: -1
     _id: -1
@@ -35,7 +34,7 @@ NewPostsListController = PostsListController.extend(
     )
 )
 
-TopPostsListController = PostsListController.extend(
+@TopPostsListController = PostsListController.extend(
   sort:
     votes: -1
     submitted: -1

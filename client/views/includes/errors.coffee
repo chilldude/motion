@@ -13,8 +13,8 @@ Template.errors.helpers
   errors: ->
     Errors.find()
 
-Template.errors.rendered = ->
-  error = @data
-  Meteor.defer ->
-    Errors.update error._id,
-      $set: {seen: true}
+#Template.errors.rendered = ->
+#  error = @data
+#  Meteor.defer ->
+#    Errors.update error._id,
+#      $set: {seen: true}
