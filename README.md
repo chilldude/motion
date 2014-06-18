@@ -5,4 +5,6 @@ Web app for online collaborative decision designed for small to medium sized coo
 
 To test motion locally, run on the root directory:
 
-''mrt''
+''mrt update
+mrt
+''
