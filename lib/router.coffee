@@ -12,8 +12,7 @@ PostsListController = RouteController.extend(
   limit: ->
     parseInt(@params.postsLimit) or @increment
   findOptions: ->
-    sort:
-      submitted: -1
+    sort: @sort
     limit: @limit()
   waitOn: ->
     Meteor.subscribe "posts", @findOptions()
@@ -80,7 +79,7 @@ Router.map ->
 
   @route "topPosts",
     path: "top/:postsLimit?"
-    controller: NewPostsListController
+    controller: TopPostsListController
 
   return
 
