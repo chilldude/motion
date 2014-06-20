@@ -36,6 +36,19 @@ Template.postItem.helpers
 
     attributes
 
+Template.postItem.rendered = ->
+  instance = this
+  rank = instance.data._rank
+  $this = $(@firstNode)
+  postHeight = 80
+  newPosition = rank * postHeight
+
+  # if element has a currentPosition then it is not a first render
+  if (typeof(instance.currentPosition) isnt undefined)
+    previousPosition = instance.currentPosition
+    # calculate difference between old position and new position and send element there
+
+
 Template.postItem.events
   'click .upvotable': (e) ->
     e.preventDefault()
