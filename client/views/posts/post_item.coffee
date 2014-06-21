@@ -47,6 +47,19 @@ Template.postItem.rendered = ->
   if (typeof(instance.currentPosition) isnt undefined)
     previousPosition = instance.currentPosition
     # calculate difference between old position and new position and send element there
+    delta = previousPosition - newPosition
+    $this.css("top", delta + "px")
+  else
+    # hide element if first render
+    $this.addClass("invisible")
+
+  # draw old position
+  Meteor.defer ->
+    instance.currentPosition = newPosition
+    # bring element to original position
+    $this.css("top", "0px").removeClass("invisible")
+
+    return
 
 
 Template.postItem.events
