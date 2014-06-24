@@ -8,7 +8,7 @@ Router.configure
 
 @PostsListController = RouteController.extend(
   template: "postsList"
-  increment: 5
+  increment: 10
   limit: ->
     parseInt(@params.postsLimit) or @increment
   findOptions: ->
